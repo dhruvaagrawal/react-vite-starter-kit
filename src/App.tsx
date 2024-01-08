@@ -1,10 +1,10 @@
 import { queryClient } from "@/main"
 import { ErrorComponent, Router, RouterProvider } from "@tanstack/react-router"
 
+import { Icons } from "@/components/icons"
 import { useSessionStorage } from "@/hooks/use-session-storage"
 import { auth } from "@/lib/auth"
 
-import { Icons } from "./components/icons"
 import { routeTree } from "./route-tree.gen"
 
 const router = new Router({
