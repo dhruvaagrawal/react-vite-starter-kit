@@ -10,6 +10,8 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import ReactDOM from "react-dom/client"
 
+import { ThemeProvider } from "@/components/theme-provider"
+
 import "./index.css"
 
 import Header from "@/components/header"
@@ -58,7 +60,9 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </StrictMode>
   )
 }

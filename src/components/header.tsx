@@ -1,9 +1,10 @@
 import { FC } from "react"
 
-import { AvatarIcon } from "@radix-ui/react-icons"
 import { Link } from "@tanstack/react-router"
 
 import { APP_NAME } from "@/lib/constants"
+
+import { ThemeToggle } from "./theme-toggle"
 
 interface HeaderProps {}
 
@@ -20,7 +21,7 @@ const Header: FC<HeaderProps> = ({}) => {
           About
         </Link>
       </div>
-      <AvatarIcon />
+      <ThemeToggle />
     </header>
   )
 }
