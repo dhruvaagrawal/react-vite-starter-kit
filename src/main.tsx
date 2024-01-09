@@ -12,17 +12,19 @@ import ReactDOM from "react-dom/client"
 
 import "./index.css"
 
-import { Separator } from "@/components/ui/separator"
 import Header from "@/components/header"
 import HomePage from "@/components/pages/home"
+import { TailwindIndicator } from "@/components/tailwind-indicator"
 
 const rootRoute = new RootRoute({
   component: () => (
     <>
-      <Header />
-      <Separator />
+      <div className="flex w-full items-center justify-center p-4">
+        <Header />
+      </div>
       <Outlet />
-      <TanStackRouterDevtools />
+      <TailwindIndicator />
+      <TanStackRouterDevtools position="bottom-right" />
     </>
   ),
 })
