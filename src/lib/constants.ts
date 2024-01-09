@@ -1,1 +1,1 @@
-export const APP_NAME = "trckr"
+export const APP_NAME = "react-start-starter-kit"
