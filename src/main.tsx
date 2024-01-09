@@ -1,25 +1,67 @@
-import React from "react"
-import App from "@/App.tsx"
-import { ClerkProvider } from "@clerk/clerk-react"
-import { neobrutalism } from "@clerk/themes"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { StrictMode } from "react"
+import {
+  Link,
+  Outlet,
+  RootRoute,
+  Route,
+  Router,
+  RouterProvider,
+} from "@tanstack/react-router"
+import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import ReactDOM from "react-dom/client"
 
 import "./index.css"
 
-import { env } from "@/env"
+import HomePage from "@/components/pages/home"
 
-export const queryClient = new QueryClient()
+const rootRoute = new RootRoute({
+  component: () => (
+    <>
+      <div className="flex gap-4 p-2">
+        <Link to="/" className="[&.active]:font-bold">
+          Home
+        </Link>
+        <Link to="/about" className="[&.active]:font-bold">
+          About
+        </Link>
+      </div>
+      <hr />
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  ),
+})
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ClerkProvider
-      publishableKey={env.VITE_CLERK_PUBLISHABLE_KEY}
-      appearance={{ baseTheme: neobrutalism }}
-    >
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </ClerkProvider>
-  </React.StrictMode>
-)
+const indexRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: HomePage,
+})
+
+const aboutRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/about",
+  component: function About() {
+    return <div className="p-2">Hello from About!</div>
+  },
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, aboutRoute])
+
+const router = new Router({ routeTree })
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const rootElement = document.getElementById("app")!
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  )
+}
