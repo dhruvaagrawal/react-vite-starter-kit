@@ -1,6 +1,6 @@
 import { StrictMode } from "react"
+
 import {
-  Link,
   Outlet,
   RootRoute,
   Route,
@@ -12,20 +12,15 @@ import ReactDOM from "react-dom/client"
 
 import "./index.css"
 
+import { Separator } from "@/components/ui/separator"
+import Header from "@/components/header"
 import HomePage from "@/components/pages/home"
 
 const rootRoute = new RootRoute({
   component: () => (
     <>
-      <div className="flex gap-4 p-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Home
-        </Link>
-        <Link to="/about" className="[&.active]:font-bold">
-          About
-        </Link>
-      </div>
-      <hr />
+      <Header />
+      <Separator />
       <Outlet />
       <TanStackRouterDevtools />
     </>
